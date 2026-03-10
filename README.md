@@ -60,25 +60,25 @@ Guides are located in the \*\*docs\*\* folder.
 
 
 
-docs/  
+docs/
 
 Recovery and hardware documentation
 
 
 
-firmware/  
+firmware/
 
 Firmware backups and partition images
 
 
 
-loader/  
+loader/
 
 DDR loaders used for Maskrom recovery
 
 
 
-scripts/  
+scripts/
 
 Helper scripts for firmware dumping and flashing
 
@@ -104,7 +104,35 @@ Linux or Windows with:
 
 
 
-Flashing incorrect firmware can permanently brick a device.  
+Flashing incorrect firmware can permanently brick a device.
 
 Always create backups before modifying partitions.
+
+
+
+\## Windows PowerShell Scripts
+
+
+
+For users working on Windows:
+
+
+
+\- `scripts/backup\_rk3566.ps1`
+
+\- `scripts/restore\_rk3566.ps1`
+
+
+
+These scripts use `rkdeveloptool.exe` and a known working RK3566 loader.
+
+
+
+\### Example restore
+
+
+
+```powershell
+
+powershell -ExecutionPolicy Bypass -File .\\scripts\\restore\_rk3566.ps1
 
