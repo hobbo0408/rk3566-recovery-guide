@@ -1,102 +1,94 @@
-\# RK3566 Recovery Guide
+\# RK3566 Recovery Toolkit
 
 
 
-Tools and documentation for recovering RK3566-based devices such as the Infinity Game Table.
+Recovery documentation and scripts for repairing RK3566-based devices such as the Infinity Game Table.
 
 
 
-This repository documents how to:
+\## Features
 
 
 
-\- recover devices from Maskrom mode
+\- Maskrom recovery guide
 
-\- repair the boot chain
+\- Boot chain explanation
 
-\- restore firmware partitions
+\- Partition map
 
-\- understand the RK3566 hardware layout
+\- Hardware overview
 
+\- Troubleshooting guide
 
+\- Windows PowerShell recovery scripts
 
-\## Documentation
 
 
+\## Repository Structure
 
-Guides are located in the \*\*docs\*\* folder.
 
 
+docs/  
 
-\### Recovery
+Documentation explaining the boot process and recovery methods.
 
 
 
-\- docs/unbrick\_from\_maskrom.md
+scripts/  
 
-\- docs/troubleshooting.md
+PowerShell scripts used to dump and restore firmware.
 
 
 
-\### Firmware
+firmware/  
 
+Storage location for backup images.
 
 
-\- docs/boot\_chain.md
 
-\- docs/partition\_map.md
+loader/  
 
+DDR loaders used for Maskrom recovery.
 
 
-\### Hardware
 
+\## Quick Start
 
 
-\- docs/hardware\_overview.md
 
+1\. Connect device via USB.
 
 
-\## Repository Layout
 
+2\. Verify detection:
 
 
-docs/
 
-Recovery and hardware documentation
+rkdeveloptool ld
 
 
 
-firmware/
+3\. Load DDR loader:
 
-Firmware backups and partition images
 
 
+rkdeveloptool db rk3566\_lp4x\_528\_safe.bin
 
-loader/
 
-DDR loaders used for Maskrom recovery
 
+4\. Restore boot region:
 
 
-scripts/
 
-Helper scripts for firmware dumping and flashing
+rkdeveloptool wl 0x0 full\_boot\_backup.bin
 
 
 
-\## Requirements
+5\. Reboot:
 
 
 
-Linux or Windows with:
-
-
-
-\- rkdeveloptool
-
-\- USB connection to the device
-
-\- RK3566 DDR loader
+rkdeveloptool rd
 
 
 
@@ -104,35 +96,7 @@ Linux or Windows with:
 
 
 
-Flashing incorrect firmware can permanently brick a device.
+Flashing incorrect firmware may permanently brick the device.  
 
-Always create backups before modifying partitions.
-
-
-
-\## Windows PowerShell Scripts
-
-
-
-For users working on Windows:
-
-
-
-\- `scripts/backup\_rk3566.ps1`
-
-\- `scripts/restore\_rk3566.ps1`
-
-
-
-These scripts use `rkdeveloptool.exe` and a known working RK3566 loader.
-
-
-
-\### Example restore
-
-
-
-```powershell
-
-powershell -ExecutionPolicy Bypass -File .\\scripts\\restore\_rk3566.ps1
+Always make backups before modifying partitions.
 
